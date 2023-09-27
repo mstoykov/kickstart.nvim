@@ -70,7 +70,9 @@ require('lazy').setup({
   'tpope/vim-rhubarb',
 
   -- Detect tabstop and shiftwidth automatically
-  'tpope/vim-sleuth',
+  -- 'tpope/vim-sleuth',
+  'Darazaki/indent-o-matic',
+
 
   -- NOTE: This is where your plugins related to LSP can be installed.
   --  The configuration is done below. Search for lspconfig to find it below.
@@ -193,7 +195,7 @@ require('lazy').setup({
   -- NOTE: Next Step on Your Neovim Journey: Add/Configure additional "plugins" for kickstart
   --       These are some example plugins that I've included in the kickstart repository.
   --       Uncomment any of the lines below to enable them.
-  -- require 'kickstart.plugins.autoformat',
+  require 'kickstart.plugins.autoformat',
   -- require 'kickstart.plugins.debug',
 
   -- NOTE: The import below automatically adds your own plugins, configuration, etc from `lua/custom/plugins/*.lua`
@@ -251,7 +253,8 @@ vim.o.termguicolors = true
 vim.cmd([[
     autocmd FileType markdown setlocal spell spelllang=en_us
     autocmd FileType gitcommit setlocal spell spelllang=en_us
-    autocmd FileType javascript set shiftwidth=2
+    autocmd FileType javascript setlocal shiftwidth=2 tabstop=2 expandtab
+    autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
 ]])
 
 -- [[ Basic Keymaps ]]
@@ -436,15 +439,42 @@ end
 local servers = {
   -- clangd = {},
   gopls = {
-    codelenses = {
-      gc_details = true,
-      generate = true,
+    gopls = {
+      codelenses = {
+        gc_details = true,
+        generate = true,
+      },
+      gofumpt = true,
+      usePlaceholders = true,
+      hoverKind = "FullDocumentation",
+      hints = {
+        parameterNames = true,
+        assignVariableTypes = true,
+        compositeLiteralFields = true,
+        constantValues = true,
+        functionTypeParameters = true,
+        rangeVariableTypes = true,
+      },
     },
-    hoverKind = "FullDocumentation",
+  },
+  yamlls = {
+    yaml = {
+      schemas = {
+        ["https://json.schemastore.org/github-workflow.json"] = "/.github/workflows/*",
+      },
+      format = {
+        enable = true,
+        singleQuote = true
+      },
+      editor = {
+        tabSize = 1,
+      },
+    }
   },
   -- pyright = {},
   -- rust_analyzer = {},
-  -- tsserver = {},
+  tsserver = {},
+  golangci_lint_ls = {},
 
   lua_ls = {
     Lua = {
@@ -529,3 +559,11 @@ cmp.setup {
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
+--
+
+vim.api.nvim_create_autocmd('BufWritePre', {
+  pattern = '*.go',
+  callback = function()
+    vim.lsp.buf.code_action({ context = { only = { 'source.organizeImports' } }, apply = true })
+  end
+})
