@@ -515,6 +515,10 @@ local luasnip = require 'luasnip'
 require('luasnip.loaders.from_vscode').lazy_load()
 luasnip.config.setup {}
 
+luasnip.config.set_config({
+  region_check_events = 'InsertEnter',
+  delete_check_events = 'InsertLeave'
+})
 cmp.setup {
   snippet = {
     expand = function(args)
@@ -555,11 +559,19 @@ cmp.setup {
     { name = 'luasnip' },
     { name = 'otter' },
   },
+  view = {
+    docs = {
+      auto_open = true,
+    },
+  },
+  preselect = 'None',
+  experimental = {
+    ghost_text = true,
+  },
 }
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
---
 
 vim.api.nvim_create_autocmd('BufWritePre', {
   pattern = '*.go',
