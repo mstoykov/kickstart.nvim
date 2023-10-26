@@ -246,7 +246,8 @@ vim.o.completeopt = 'menuone,noselect'
 -- NOTE: You should make sure your terminal supports this
 vim.o.termguicolors = true
 
-
+vim.o.list = true
+vim.fn.matchadd('errorMsg', [[\s\+$]])
 -- Spellcheck and javascript tab size
 vim.cmd([[
     autocmd FileType markdown setlocal spell spelllang=en_us
