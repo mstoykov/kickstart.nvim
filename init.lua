@@ -572,7 +572,7 @@ cmp.setup {
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
 
-vim.api.nvim_create_autocmd('BufWritePre', {
+vim.api.nvim_create_autocmd('BufWritePost', {
   pattern = '*.go',
   callback = function()
     vim.lsp.buf.code_action({ context = { only = { 'source.organizeImports' } }, apply = true })
