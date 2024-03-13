@@ -1,2 +1,4 @@
 transpiler
 cardinality
+idempotency
+crypto

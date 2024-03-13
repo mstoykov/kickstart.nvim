@@ -1,4 +1,5 @@
 return {
         "akinsho/toggleterm.nvim",
-        config = { open_mapping = [[<c-\>]], direction = "tab" }
+        config = { open_mapping = [[<c-\>]]
+        }
 }
