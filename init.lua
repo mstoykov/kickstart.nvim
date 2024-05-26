@@ -553,11 +553,13 @@ cmp.setup {
       end
     end, { 'i', 's' }),
   },
+
   sources = {
     { name = 'nvim_lsp' },
     { name = 'luasnip' },
     { name = 'otter' },
   },
+  performance = { trigger_debounce_time = 500, throttle = 550, fetching_timeout = 80, },
   view = {
     docs = {
       auto_open = true,
