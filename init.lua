@@ -247,6 +247,7 @@ vim.o.completeopt = 'menuone,noselect'
 vim.o.termguicolors = true
 
 vim.o.list = true
+vim.o.tabstop = 4
 vim.fn.matchadd('errorMsg', [[\s\+$]])
 -- Spellcheck and javascript tab size
 vim.cmd([[
