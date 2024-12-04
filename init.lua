@@ -383,6 +383,19 @@ require('nvim-treesitter.configs').setup {
 vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous diagnostic message' })
 vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next diagnostic message' })
 vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Open floating diagnostic message' })
+local nolintDiagnostic = function()
+  local message = vim.diagnostic.get_next().message
+  local newNolint = string.sub(message, 0, string.find(message, ":") - 1)
+  local line = vim.api.nvim_get_current_line()
+  if string.find(line, "//nolint:") == nil then
+    line = line .. " //nolint:" .. newNolint
+  else
+    line = line .. "," .. newNolint
+  end
+  vim.api.nvim_set_current_line(line)
+end
+
+vim.keymap.set('n', '<leader>ie', nolintDiagnostic, { desc = 'Add nolint for diagnostic message' })
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostics list' })
 
 -- [[ Configure LSP ]]
