@@ -384,8 +384,15 @@ vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous dia
 vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next diagnostic message' })
 vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Open floating diagnostic message' })
 local nolintDiagnostic = function()
-  local message = vim.diagnostic.get_next().message
-  local newNolint = string.sub(message, 0, string.find(message, ":") - 1)
+  local diagnostics = vim.diagnostic.get(0)
+  local row, _ = unpack(vim.api.nvim_win_get_cursor(0))
+  local newNolint = "";
+  for _, d in pairs(diagnostics) do
+    if d.lnum == (row - 1) then
+      newNolint = newNolint .. "," .. string.sub(d.message, 0, string.find(d.message, ":") - 1)
+    end
+  end
+  newNolint = string.sub(newNolint, 2, string.len(newNolint))
   local line = vim.api.nvim_get_current_line()
   if string.find(line, "//nolint:") == nil then
     line = line .. " //nolint:" .. newNolint
