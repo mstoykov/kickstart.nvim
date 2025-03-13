@@ -451,6 +451,12 @@ local servers = {
       gofumpt = true,
       usePlaceholders = true,
       hoverKind = "FullDocumentation",
+      completeFunctionCalls = true,
+      semanticTokens = true,
+      analyses = {
+        fillstruct = false,
+        unusedparams = true,
+      },
       hints = {
         parameterNames = true,
         assignVariableTypes = true,
