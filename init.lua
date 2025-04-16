@@ -485,6 +485,7 @@ local servers = {
   -- pyright = {},
   -- rust_analyzer = {},
   ts_ls = {},
+  jsonls = {},
   golangci_lint_ls = {},
 
   lua_ls = {
