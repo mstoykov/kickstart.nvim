@@ -467,7 +467,6 @@ local servers = {
       },
     },
   },
-  actionlint = {},
   yamlls = {
     yaml = {
       schemas = {
