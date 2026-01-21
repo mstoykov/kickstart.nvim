@@ -40,5 +40,31 @@ return {
     -- setup dap config by VsCode launch.json file
     local vscode = require("dap.ext.vscode")
     local json = require("plenary.json")
+    local dap = require("dap")
+    dap.adapters["pwa-node"] = {
+      type = "server",
+      host = "localhost",
+      port = "${port}",
+      executable = {
+        command = "node",
+        args = { vim.fn.stdpath("data") .. "/mason/packages/js-debug-adapter/js-debug/src/dapDebugServer.js", "${port}" },
+      }
+    }
+    dap.adapters["k6"] = {
+      type = "server",
+      host = "127.0.0.1",
+      port = "4711",
+    }
+
+    dap.providers.configs["sobek_debugger"] = function(bufnr)
+      return {
+        {
+          name = "This config always shows up",
+          type = "k6",
+          request = "attach",
+          port = "4711",
+        },
+      }
+    end
   end,
 }

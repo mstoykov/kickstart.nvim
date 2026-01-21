@@ -5,7 +5,6 @@ return {
 	-- example using `opts` for defining servers
 	opts = {
 		servers = {
-			gopls = {}
 		}
 	},
 	config = function(_, opts)

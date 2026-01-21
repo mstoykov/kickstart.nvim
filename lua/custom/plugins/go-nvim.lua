@@ -7,7 +7,7 @@ return {
   },
   config = function()
     require("go").setup({
-      lsp_cfg = false,
+      lsp_cfg = true,
       lsp_document_formatting = true,
       lsp_keymaps = true,
       lsp_codelens = true,
