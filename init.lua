@@ -186,6 +186,11 @@ require('lazy').setup({
   --
   --    For additional information see: https://github.com/folke/lazy.nvim#-structuring-your-plugins
   { import = 'custom.plugins' },
+  {
+  dir = "/home/mstoykov/work/k6io/k6-first-runner-mem-steps",
+  name = "k6-profile-overlay",
+  lazy = false,
+},
 }, {})
 
 -- [[ Setting options ]]
@@ -483,7 +488,24 @@ local servers = {
   },
   -- pyright = {},
   -- rust_analyzer = {},
-  ts_ls = {},
+  tsgo = {
+    filetypes = {
+      "javascript",
+      "javascriptreact",
+      "javascript.jsx",
+      "typescript",
+      "typescriptreact",
+      "typescript.tsx",
+    },
+    root_markers = {
+      "tsconfig.json",
+      "jsconfig.json",
+      "package.json",
+      ".git",
+      "tsconfig.base.json",
+    },
+    settings = {},
+  },
   jsonls = {},
   golangci_lint_ls = {},
 
@@ -514,7 +536,6 @@ mason_lspconfig.setup {
     end,
   }
 }
-
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
