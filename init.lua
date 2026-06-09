@@ -178,11 +178,11 @@ require('lazy').setup({
   --
   --    For additional information see: https://github.com/folke/lazy.nvim#-structuring-your-plugins
   { import = 'custom.plugins' },
-  {
-  dir = "/home/mstoykov/work/k6io/k6-first-runner-mem-steps",
-  name = "k6-profile-overlay",
-  lazy = false,
-},
+--   {
+--   dir = "/home/mstoykov/work/k6io/k6-first-runner-mem-steps",
+--   name = "k6-profile-overlay",
+--   lazy = false,
+-- },
 }, {})
 
 -- [[ Setting options ]]
